@@ -121,7 +121,7 @@ resource "azurerm_virtual_machine_extension" "iis" {
   type                 = "CustomScriptExtension"
   type_handler_version = "1.10"
 
-settings = <<SETTINGS
+  settings = <<SETTINGS
 {
   "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \"Install-WindowsFeature Web-Server -IncludeManagementTools; Set-Content -Path 'C:\\inetpub\\wwwroot\\index.html' -Value '<!DOCTYPE html><html><head><title>My Azure VM Website</title></head><body><h1>Welcome to My VM</h1><p>Deployed using IIS on Azure Windows VM</p></body></html>'\""
 }
