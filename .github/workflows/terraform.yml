@@ -1,5 +1,5 @@
 name: Terraform Deploy Azure Windows VM
-
+# Updated GitHub Actions Workflow
 on:
   push:
     branches:
