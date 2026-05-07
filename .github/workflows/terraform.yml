@@ -12,12 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-      TENANT_ID: ${{ secrets.TENANT_ID }}
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      
+      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
 
     steps:
       # Checkout Repository
@@ -28,10 +26,13 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.CLIENT_ID }}
-          tenant-id: ${{ secrets.TENANT_ID }}
-          subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
+          creds: |
+            {
+              "clientId": "${{ secrets.CLIENT_ID }}",
+              "clientSecret": "${{ secrets.CLIENT_SECRET }}",
+              "subscriptionId": "${{ secrets.SUBSCRIPTION_ID }}",
+              "tenantId": "${{ secrets.TENANT_ID }}"
+            }
 
       # Setup Terraform
       - name: Setup Terraform
@@ -41,7 +42,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      # Terraform Format
+      # Terraform Format Check
       - name: Terraform Format
         run: terraform fmt -check
 
