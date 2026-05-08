@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default = "Saisadhan_rg_new"
+  default = "Saisadhan_Task1"
 }
 
 variable "location" {
